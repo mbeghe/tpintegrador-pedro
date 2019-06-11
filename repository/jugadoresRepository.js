@@ -2,24 +2,43 @@ const { poolPromise } = require('./pool');
 
 module.exports = {
     create: async function(name) {
-        try {
-            const pool = await poolPromise;
-        const result = await pool.request()
-                                        .input('nameParameter', name)
-                                        .query('INSERT INTO dbo.jugador (nombre) VALUES(@nameParameter)');
-
-        return result.rowsAffected < 1 ? "Query succesfully processed" : "Error on database";
-        } catch (error) {
-            throw error;
-        }
+        const pool = await poolPromise;
+        return await pool.request()
+                        .input('nameParameter', name)
+                        .query('INSERT INTO dbo.jugador (nombre) VALUES(@nameParameter)')
+                        .then(result => {
+                                console.log(result);
+                        }).catch(function(err) {
+                            console.log(err.message);
+                        });
     },
-    update: function(name) {
-
+    update: async function(name, equipo) {
+        const pool = await poolPromise;
+        return await pool.request()
+                        .input('nameParameter', name)
+                        .input('teamParameter', equipo)
+                        .query('UPDATE dbo.jugador SET equipo=@teamparameter WHERE nombre=@nameParameter')
+                        .then(result => {
+                                console.log(result);
+                                if(result.rowsAffected == 1){
+                                    console.log('Values updated for player', name)
+                                }
+                        }).catch(function(err) {
+                            console.log(err.message);
+                        });
     },
     delete: async function(name) {
         const pool = await poolPromise;
-        const result = await pool.request()
-                                        .input('nameParameter', name)
-                                        .query('INSERT INTO dbo.jugador (nombre) VALUES(@nameParameter)')
+        return await pool.request()
+                        .input('nameParameter', name)
+                        .query('DELETE FROM dbo.jugador WHERE nombre=@nameParameter')
+                        .then(result => {
+                                console.log(result);
+                                if(result.rowsAffected == 0){
+                                    console.log('No records found for', name)
+                                }
+                        }).catch(function(err) {
+                            console.log(err.message);
+                        });
     }
 }
