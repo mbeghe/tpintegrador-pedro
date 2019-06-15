@@ -2,7 +2,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
 var jugadoresRepository = require('../repository/jugadoresRepository');
-
+var equiposRepository = require('../repository/equiposRepository');
+var torneosRepository = require('../repository/torneosRepository');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -37,6 +38,79 @@ app.delete('/eliminar-jugador', function(req, res) {
         console.log("Attempting to delete record.")
         var result = jugadoresRepository.delete(req.body.name) 
         
+        res.send(result)
+    } catch (error) {
+        res.status(500);
+        res.send(error.message);
+    }
+});
+
+// API equipos
+app.post('/crear-equipo', function(req, res) {
+    try {
+        console.log("Attempting to create team.")
+        var result = equiposRepository.create(req.body.name)
+
+        res.send(result)
+    } catch (error) {
+        res.status(500);
+        res.send(error.message);
+    }
+});
+
+app.put('/actualizar-equipo', function(req, res) {
+    try {
+        console.log("Attempt to update team received.")
+        var result = equiposRepository.update(req.body.name, req.body.teamId) 
+        
+        res.send(result)
+    } catch (error) {
+        res.status(500);
+        res.send(error.message);
+    }
+});
+
+app.delete('/eliminar-equipo', function(req, res) {
+    try {
+        console.log("Attempting to delete team.")
+        var result = equiposRepository.delete(req.body.id) 
+        
+        res.send(result)
+    } catch (error) {
+        res.status(500);
+        res.send(error.message);
+    }
+});
+
+app.post('crear-torneo', function(req, res) {
+    try {
+        console.log("Creating tournament with id" + req.body.id);
+        var result = torneosRepository.create(req.body.teams, req.body.id)
+
+        res.send(result)
+    } catch (error) {
+        res.status(500);
+        res.send(error.message);
+    }
+});
+
+app.put('actualizar-torneo', function(req, res) {
+    try {
+        console.log("Updating point values for tournament" + req.body.id);
+        var result = torneosRepository.update(req.body.teams, req.body.id)
+
+        res.send(result)
+    } catch (error) {
+        res.status(500);
+        res.send(error.message);
+    }
+});
+
+app.delete('actualizar-torneo', function(req, res) {
+    try {
+        console.log("Deleting team" + req.body.teamId + " from tournament" + req.body.id);
+        var result = torneosRepository.delete(req.body.teamId, req.body.id)
+
         res.send(result)
     } catch (error) {
         res.status(500);
