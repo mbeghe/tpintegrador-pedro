@@ -1,6 +1,6 @@
-const fs = require('fs');
+const fs = require('./node_modules/fs');
 var commonFunctions = require('../shared/commonFunctions');
-var partidosManager = require('./partidos');
+var partidosManager = require('../../api/partidos');
 const fixturePath = '../../../T3/fixtures/fixture.json';
 const partidos = []
 
