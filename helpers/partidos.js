@@ -1,6 +1,6 @@
 const tablaPath = '../../tabladeposiciones/tabladeposiciones.txt';
 const tablaValues = '../../tabladeposiciones/tablavalues.json';
-const partidosPath = '../../../T3/partidos/';
+var reporting = require('./reporting');
 const fs = require('fs');
 const puntajeInicial = 0;
 var commonFunctions = require('../shared/commonFunctions');
@@ -23,15 +23,34 @@ module.exports = {
         
       }
   },
-  processMatches: function(matches) {
-    matches.forEach(p => {
+  processMatches: function(payload) {
+    payload.matches.forEach(p => {
       if(partidosRepository.alreadyLoaded(p.Id))
       {
-        console.log("el partido ya fue cargado");
+        console.log("El partido ya fue cargado.");
 
-        return;
+        continue;
       }
-      partiidosRepository.insertMatch(p.Id);
-    })
-  }
+
+      partidosRepository.insertMatch(p.Id);
+      
+      if(p.result == -1)
+      {
+        torneosRepository.update(payload.tournamentId,p.team1,1);
+        torneosRepository.update(payload.tournamentId,p.team2,1);
+
+        console.log("Empate registrado exitosamente.");
+      }
+      else
+      {
+        torneosRepository.update(payload.tournamentId,p.result,3);
+
+        console.log("Equipo actualizado correctamente");
+      }
+    });
+
+    reporting.updateorCreateReport(payload.tournamentId);
+  },
 }
+
+
