@@ -1,3 +1,5 @@
+var torneosRepository = require('../repository/torneosRepository');
+
 module.exports = {
 buscarEquipo: function(key, myArray){
     for (var i=0; i < myArray.length; i++) {
@@ -37,5 +39,8 @@ formatear: function (equiposArray, x) {
       {
         return false;
       }
+    },
+    getTeamByTournamentId: function (tournamentId){
+      return torneosRepository.getTeamsByTournamentId(tournamentId);
     }
 }
