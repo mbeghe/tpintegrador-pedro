@@ -1,5 +1,7 @@
 const { poolPromise } = require('./pool');
 var { writeFixtureToFileSystem } = require('../helpers/fixtureManager');
+var { createReport } = require('../helpers/partidos');
+var { convertToObjArray } = require('../shared/commonFunctions');
 
 module.exports = {
     create: async function (teams, tournamentId) {
@@ -18,22 +20,19 @@ module.exports = {
         });
         
     },
-    update: async function (tournamentId, teamId, points) {
+    update: async function (teamId, tournamentId, points, callback, res) {
         const pool = await poolPromise;
-            await pool.request()
-                .input('teamIdParameter', teamId)
-                .input('pointsParameter', points)
-                .input('tournamentParameter', tournamentId)
-                .query('UPDATE dbo.torneos SET puntos=@pointsParameter WHERE id=@tournamentParameter AND equipo=@teamIdParameter')
-                .then(result => {
-                    console.log(result);
-                    if(result.rowsAffected == 1){
-                        console.log('Values updated for team' + team.name + 'in tournament: ' + tournamentId)
-                    }
-                })
-                .catch(function(err) {
-                    console.log(err.message);
-                });
+        pool.request()
+            .input('teamIdParameter', teamId)
+            .input('pointsParameter', points)
+            .input('tournamentParameter', tournamentId)
+            .query('UPDATE dbo.torneos SET puntos=@pointsParameter WHERE id=@tournamentParameter AND equipo=@teamIdParameter')
+            .then(result => {
+                callback(tournamentId, createReport)
+            })
+            .catch(function(err) {
+                console.log(err.message);
+            });
     },
     delete: async function (teamId, tournamentId) {
         const pool = await poolPromise;
@@ -61,7 +60,7 @@ module.exports = {
                             console.log(err.message);
                         });
     },
-    getTeamByTournamentId: async function (tournamentId, res){
+    getTeamByTournamentId: async function (tournamentId, callback, res){
         const pool = await poolPromise;
         await pool.request()
                         .input('tournamentIdParameter', tournamentId)

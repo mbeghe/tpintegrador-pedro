@@ -1,53 +1,33 @@
-const tablaPath = '../../tabladeposiciones/tabladeposiciones.txt';
-const tablaValues = '../../tabladeposiciones/tablavalues.json';
 var reporting = require('./reporting');
 const fs = require('fs');
-const puntajeInicial = 0;
 var commonFunctions = require('../shared/commonFunctions');
-var partidosRepository = require('../repository/partidosRepository');
-
+var { insertMatch } = require('../repository/partidosRepository');
+var torneosRepository = require('../repository/torneosRepository');
 
 module.exports = {
-    createReport: function(teams) {
-      var teamsArray = commonFunctions.convertToObjArray(teams);
+    createReport: function(err, teamsArray, tournamentId, res) {
+      var assetsPath = './assets/ranking' + tournamentId + '.txt';
       var n = teamsArray.length;
       var equipoValues = [];
-      fs.writeFileSync(tablaPath, 'Tabla de posiciones' + '\r\n')
-      fs.appendFileSync(tablaPath, '--------------------------' + '\r\n')
-      fs.writeFileSync(tablaValues,'');
+      fs.writeFileSync(assetsPath, 'Tabla de posiciones' + '\r\n')
+      fs.appendFileSync(assetsPath, '--------------------------' + '\r\n')
       for(var i =0; i<n; i++)
       {
         var equipo = commonFunctions.formatear (teamsArray, i+1 );
-        equipoValues.push([{name: equipo, puntos: puntajeInicial}]);
-        fs.appendFileSync(tablaPath, equipo + ': ' + puntajeInicial + '\r\n');
-        
+        equipoValues.push([{name: equipo, puntos: 0}]);
+        fs.appendFileSync(assetsPath, equipo + ': ' + 0 + '\r\n');
       }
   },
-  processMatches: function(payload) {
+  processMatches: function(err, payload, callback, res) {
+    if(err){
+      callback(err)
+    }
+
     payload.matches.forEach(p => {
       
-      if(partidosRepository.alreadyLoaded(p.id))
-      {
-        console.log("El partido ya fue cargado.");
-
-        return;
-      }
-
-      partidosRepository.insertMatch(p.id);
+      callback(p, payload.tournamentId, insertMatch, res)
       
-      if(p.result == -1)
-      {
-        torneosRepository.update(payload.tournamentId,p.team1,1);
-        torneosRepository.update(payload.tournamentId,p.team2,1);
-
-        console.log("Empate registrado exitosamente.");
-      }
-      else
-      {
-        torneosRepository.update(payload.tournamentId,p.result,3);
-
-        console.log("Equipo actualizado correctamente");
-      }
+      
     });
 
     reporting.updateorCreateReport(payload.tournamentId);

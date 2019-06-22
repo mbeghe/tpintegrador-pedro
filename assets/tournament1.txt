@@ -1,0 +1,38 @@
+FIXTURE
+--------------------------
+--------------------------
+Fecha 1
+--------------------------
+River      VS Boca      
+Racing     VS Newells   
+Olimpo     VS Temperley 
+--------------------------
+Fecha 2
+--------------------------
+River      VS Racing    
+Olimpo     VS Boca      
+Chacarita  VS Newells   
+--------------------------
+Fecha 3
+--------------------------
+River      VS Olimpo    
+Chacarita  VS Racing    
+Temperley  VS Boca      
+--------------------------
+Fecha 4
+--------------------------
+River      VS Chacarita 
+Temperley  VS Olimpo    
+Newells    VS Racing    
+--------------------------
+Fecha 5
+--------------------------
+River      VS Temperley 
+Newells    VS Chacarita 
+Boca       VS Olimpo    
+--------------------------
+Fecha 6
+--------------------------
+River      VS Newells   
+Boca       VS Temperley 
+Racing     VS Chacarita 

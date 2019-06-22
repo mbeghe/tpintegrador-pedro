@@ -4,8 +4,9 @@ const app = express();
 var jugadoresRepository = require('../repository/jugadoresRepository');
 var equiposRepository = require('../repository/equiposRepository');
 var { getTeamByTournamentId } = require('../repository/torneosRepository');
-var matches = require('../helpers/partidos');
+var { processMatches } = require('../helpers/partidos');
 var { generateFixture } = require('../helpers/fixtureManager');
+var { alreadyLoaded } = require('../repository/partidosRepository');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -123,8 +124,8 @@ app.delete('eliminar-torneo', function(req, res) {
 app.post('/cargar-partidos', function(req, res) {
     try {
         console.log("Loading matchs json");
-        var result= matches.processMatches(req.body);
 
+        processMatches(null, req.body, alreadyLoaded, res);
         res.send(result)
     } catch (error) {
         res.status(500);

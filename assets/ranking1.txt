@@ -1,0 +1,9 @@
+Tabla de posiciones
+--------------------------
+River     : 0
+Boca      : 0
+Racing    : 0
+Olimpo    : 0
+Chacarita : 0
+Temperley : 0
+Newells   : 0
