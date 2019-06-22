@@ -7,7 +7,7 @@ module.exports = {
        try
        {
            var content = torneosRepository.getOrderedById(tournamentId);
-           fs.writeFileSync(assetsPath + 'tournament' + tournamentId, content);
+           fs.writeFileSync(assetsPath + 'tournament' + tournamentId + '.txt', content);
        }
        catch(error)
        {

@@ -1,13 +1,14 @@
 const fs = require('fs');
 var commonFunctions = require('../shared/commonFunctions');
-var partidosManager = require('../../api/partidos');
+var matchesManager = require('../helpers/partidos');
 const fixturePath = '../../../T3/fixtures/fixture.json';
-const partidos = []
+const matchesArray = [];
 
 module.exports = {
-    generarFixture: function (equipos) {
-    var equiposArray = commonFunctions.convertToObjArray(equipos);
-    var n = equiposArray.length;
+    generateFixture: function (tournmanentId) {
+    var teams = commonFunctions.getTeamByTournamentId(tournmanentId);
+    var teamsArray = commonFunctions.convertToObjArray(teams);
+    var n = teamsArray.length;
     //var fechas = [];
     var matches = n-1;
     try{
@@ -20,17 +21,17 @@ module.exports = {
         for (i=1; i <= n/2; i++) {
           if (i==1)
           {
-          var equipo1 = commonFunctions.formatear (equiposArray, 1 );
-          var equipo2 = commonFunctions.formatear (equiposArray, (matches+r-1) % (matches) + 2);
-          fs.appendFileSync(fixturePath, equipo1 + ' VS ' + equipo2 + '\r\n')
-          commonFunctions.arrayLoader(partidos,(equipo1+'vs'+equipo2))
+          var team1 = commonFunctions.formatear (teamsArray, 1 );
+          var team2 = commonFunctions.formatear (teamsArray, (matches+r-1) % (matches) + 2);
+          fs.appendFileSync(fixturePath, team1 + ' VS ' + team2 + '\r\n')
+          commonFunctions.arrayLoader(matchesArray,(team1+'vs'+team2))
         }
           else
           {
-          var equipo1 = commonFunctions.formatear (equiposArray, (r+i-2) % (matches) + 2 );
-          var equipo2 = commonFunctions.formatear (equiposArray, (matches+r-i) % (matches) + 2);
-          fs.appendFileSync(fixturePath, equipo1 + ' VS ' + equipo2 + '\r\n')
-          commonFunctions.arrayLoader(partidos,(equipo1+'vs'+equipo2))
+          var team1 = commonFunctions.formatear (teamsArray, (r+i-2) % (matches) + 2 );
+          var team2 = commonFunctions.formatear (teamsArray, (matches+r-i) % (matches) + 2);
+          fs.appendFileSync(fixturePath, team1 + ' VS ' + team2 + '\r\n')
+          commonFunctions.arrayLoader(matchesArray,(team1+'vs'+team2))
           }
         }
       }
@@ -39,8 +40,8 @@ module.exports = {
       console.log(error.message);
     }
       try{
-        partidosManager.cargarPartidos(partidos);
-        console.log("partidos cargados correctamente");
+        matchesManager.loadMatches(matchesArray);
+        console.log("matches cargados correctamente");
       }catch(error){
         console.log(error.message);
       }
