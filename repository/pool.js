@@ -5,7 +5,8 @@ const config = {
     user:'admin',
     password:'pedrolopez',
     database:'futbolDB',
-    server:'localhost\\SQLEXPRESS'
+    server:'localhost\\SQLEXPRESS',
+    parseJSON: true
 }
 
 const poolPromise = new sql.ConnectionPool(config)
@@ -16,5 +17,7 @@ const poolPromise = new sql.ConnectionPool(config)
                 })
                 .catch(err => console.log('Database connection failed. Error: ', err));
 module.exports = {
-    sql, poolPromise
+    sql, 
+    poolPromise,
+    config
 }

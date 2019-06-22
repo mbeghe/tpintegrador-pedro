@@ -3,8 +3,9 @@ const bodyParser = require('body-parser');
 const app = express();
 var jugadoresRepository = require('../repository/jugadoresRepository');
 var equiposRepository = require('../repository/equiposRepository');
-var torneosRepository = require('../repository/torneosRepository');
+var { getTeamByTournamentId } = require('../repository/torneosRepository');
 var matches = require('../helpers/partidos');
+var { generateFixture } = require('../helpers/fixtureManager');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -50,7 +51,7 @@ app.delete('/eliminar-jugador', function(req, res) {
 app.post('/crear-equipo', function(req, res) {
     try {
         console.log("Attempting to create team.")
-        var result = equiposRepository.create(req.body.name)
+        var result = equiposRepository.create(req.body)
 
         res.send(result)
     } catch (error) {
@@ -130,6 +131,12 @@ app.post('/cargar-partidos', function(req, res) {
         res.send(error.message);
     }
 });
+
+app.get('/generate-fixture', function(req, res) {
+    console.log("Generating fixture...");
+
+    generateFixture(null, req.query.id, getTeamByTournamentId, res)
+})
 
 app.listen(3000, () => {
     console.log("Up and running");

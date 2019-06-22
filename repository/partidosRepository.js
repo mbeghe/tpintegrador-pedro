@@ -1,17 +1,16 @@
-const { poolPromise, sqlrqst } = require('./pool');
+const { poolPromise } = require('./pool');
 
 module.exports = {
-    alreadyLoaded: async function (id) {
+    alreadyLoaded: async function (id){
         const pool = await poolPromise;
-        return pool.request()
+        return await pool.request()
                         .input('idParameter', id)
                         .query('SELECT count(*) AS value FROM dbo.partidos WHERE id=@idParameter')
-                        .then(result => {
-                            console.log(result.recordset[0].value)
-                            result.recordset[0].value > 0
+                        .then(function(resolve, err) {
+                            return resolve.recordset;
                         }).catch(function(err) {
-                            console.log(err.message);
-                        }); 
+                            console.log(err.message)
+                        });
     },
     insertMatch: async function(id) {
         const pool = await poolPromise;

@@ -1,11 +1,12 @@
 const { poolPromise } = require('./pool');
 
 module.exports = {
-    create: async function (name) {
+    create: async function (team) {
         const pool = await poolPromise;
         return await pool.request()
-                        .input('nameParameter', name)
-                        .query('INSERT INTO dbo.equipos (nombre) VALUES (@nameParameter)')
+                        .input('nameParameter', team.name)
+                        .input('idParameter', team.id)
+                        .query('INSERT INTO dbo.equipos (id, nombre) VALUES (@idParameter, @nameParameter)')
                         .then(result => {
                                 console.log(result);
                         }).catch(function(err) {

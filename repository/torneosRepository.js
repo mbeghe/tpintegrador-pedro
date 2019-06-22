@@ -1,4 +1,5 @@
 const { poolPromise } = require('./pool');
+var { writeFixtureToFileSystem } = require('../helpers/fixtureManager');
 
 module.exports = {
     create: async function (teams, tournamentId) {
@@ -59,5 +60,21 @@ module.exports = {
                         }).catch(function(err) {
                             console.log(err.message);
                         });
-    }
+    },
+    getTeamByTournamentId: async function (tournamentId, res){
+        const pool = await poolPromise;
+        await pool.request()
+                        .input('tournamentIdParameter', tournamentId)
+                        .query('SELECT nombre from dbo.equipos e INNER JOIN dbo.torneos t ON e.id=t.equipo WHERE t.Id=@tournamentIdParameter')
+                        .then(result => {
+                            var toArray = [];
+                            result.recordset.forEach(r => {
+                                toArray.push(r.nombre)
+                            })
+
+                            writeFixtureToFileSystem(null, toArray, tournamentId, res)
+                        }).catch(function(err) {
+                            writeFixtureToFileSystem(err, null, null, res);
+                        });
+      }
 }
