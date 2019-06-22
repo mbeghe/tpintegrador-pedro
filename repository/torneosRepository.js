@@ -17,12 +17,11 @@ module.exports = {
         });
         
     },
-    update: async function (teams, tournamentId) {
+    update: async function (tournamentId, teamId, points) {
         const pool = await poolPromise;
-        teams.forEach(async function(team) {
             await pool.request()
-                .input('teamIdParameter', team.id)
-                .input('pointsParameter', team.points)
+                .input('teamIdParameter', teamId)
+                .input('pointsParameter', points)
                 .input('tournamentParameter', tournamentId)
                 .query('UPDATE dbo.torneos SET puntos=@pointsParameter WHERE id=@tournamentParameter AND equipo=@teamIdParameter')
                 .then(result => {
@@ -34,8 +33,6 @@ module.exports = {
                 .catch(function(err) {
                     console.log(err.message);
                 });
-        });
-        
     },
     delete: async function (teamId, tournamentId) {
         const pool = await poolPromise;
@@ -48,6 +45,17 @@ module.exports = {
                                 if(result.rowsAffected == 0){
                                     console.log('No records found for team' + teamId + 'on tournament' + tournamentId)
                                 }
+                        }).catch(function(err) {
+                            console.log(err.message);
+                        });
+    },
+    getOrderedById: function(tournamentId) {
+        const pool = await poolPromise;
+        return await pool.request()
+                        .input('tournamentIdParameter', tournamentId)
+                        .query('SELECT * FROM dbo.torneos WHERE id=@tournamentId ORDER BY puntos DESC')
+                        .then(result => {
+                            console.log(result);
                         }).catch(function(err) {
                             console.log(err.message);
                         });
