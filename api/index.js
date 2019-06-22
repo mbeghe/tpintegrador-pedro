@@ -119,7 +119,7 @@ app.delete('eliminar-torneo', function(req, res) {
     }
 });
 
-app.post('cargar-partidos', function(req, res) {
+app.post('/cargar-partidos', function(req, res) {
     try {
         console.log("Loading matchs json");
         var result= matches.processMatches(req.body);

@@ -25,14 +25,15 @@ module.exports = {
   },
   processMatches: function(payload) {
     payload.matches.forEach(p => {
-      if(partidosRepository.alreadyLoaded(p.Id))
+      
+      if(partidosRepository.alreadyLoaded(p.id))
       {
         console.log("El partido ya fue cargado.");
 
-        continue;
+        return;
       }
 
-      partidosRepository.insertMatch(p.Id);
+      partidosRepository.insertMatch(p.id);
       
       if(p.result == -1)
       {

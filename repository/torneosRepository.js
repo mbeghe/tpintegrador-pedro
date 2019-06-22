@@ -49,11 +49,11 @@ module.exports = {
                             console.log(err.message);
                         });
     },
-    getOrderedById: function(tournamentId) {
+    getOrderedById: async function(tournamentId) {
         const pool = await poolPromise;
         return await pool.request()
                         .input('tournamentIdParameter', tournamentId)
-                        .query('SELECT * FROM dbo.torneos WHERE id=@tournamentId ORDER BY puntos DESC')
+                        .query('SELECT * FROM dbo.torneos WHERE id=@tournamentIdParameter ORDER BY puntos DESC')
                         .then(result => {
                             console.log(result);
                         }).catch(function(err) {
