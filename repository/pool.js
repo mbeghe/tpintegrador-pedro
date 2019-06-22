@@ -1,12 +1,12 @@
 const sql = require('mssql');
 
 const config = {
-    host: 'localhost',
-    user: 'admin',
-    password: 'pedrolopez',
-    database: 'futbolDb',
-    server: 'localhost\\SQLEXPRESS'
-};
+    host:'localhost',
+    user:'admin',
+    password:'pedrolopez',
+    database:'futbolDB',
+    server:'localhost\\SQLEXPRESS'
+}
 
 const poolPromise = new sql.ConnectionPool(config)
                 .connect()
@@ -15,7 +15,6 @@ const poolPromise = new sql.ConnectionPool(config)
                     return pool;
                 })
                 .catch(err => console.log('Database connection failed. Error: ', err));
-                
 module.exports = {
     sql, poolPromise
 }

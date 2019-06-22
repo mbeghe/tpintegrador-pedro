@@ -106,7 +106,7 @@ app.put('actualizar-torneo', function(req, res) {
     }
 });
 
-app.delete('actualizar-torneo', function(req, res) {
+app.delete('eliminar-torneo', function(req, res) {
     try {
         console.log("Deleting team" + req.body.teamId + " from tournament" + req.body.id);
         var result = torneosRepository.delete(req.body.teamId, req.body.id)

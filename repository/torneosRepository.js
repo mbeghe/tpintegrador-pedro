@@ -3,7 +3,7 @@ const { poolPromise } = require('./pool');
 module.exports = {
     create: async function (teams, tournamentId) {
         const pool = await poolPromise;
-        teams.forEach(team => {
+        teams.forEach(async function(team){ 
             await pool.request()
                 .input('nameParameter', team.name)
                 .input('pointsParameter', team.name)
@@ -19,7 +19,7 @@ module.exports = {
     },
     update: async function (teams, tournamentId) {
         const pool = await poolPromise;
-        teams.forEach(team => {
+        teams.forEach(async function(team) {
             await pool.request()
                 .input('teamIdParameter', team.id)
                 .input('pointsParameter', team.points)
