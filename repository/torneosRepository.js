@@ -28,7 +28,7 @@ module.exports = {
             .input('tournamentParameter', tournamentId)
             .query('UPDATE dbo.torneos SET puntos=@pointsParameter WHERE id=@tournamentParameter AND equipo=@teamIdParameter')
             .then(result => {
-                callback(tournamentId, createReport)
+                callback(tournamentId, createReport, res)
             })
             .catch(function(err) {
                 console.log(err.message);
@@ -49,13 +49,13 @@ module.exports = {
                             console.log(err.message);
                         });
     },
-    getOrderedById: async function(tournamentId) {
+    getOrderedById: async function(tournamentId, callback, res) {
         const pool = await poolPromise;
         return await pool.request()
                         .input('tournamentIdParameter', tournamentId)
                         .query('SELECT * FROM dbo.torneos WHERE id=@tournamentIdParameter ORDER BY puntos DESC')
                         .then(result => {
-                            console.log(result);
+                            callback(null, result, tournamentId, res)
                         }).catch(function(err) {
                             console.log(err.message);
                         });
