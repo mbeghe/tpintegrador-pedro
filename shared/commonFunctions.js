@@ -11,16 +11,17 @@ module.exports = {
   },
   formatear: function (equiposArray, x) {
     var doubleX = +x;
-    if (x < 10) return  this.buscarEquipo( doubleX, equiposArray); return this.buscarEquipo(x, equiposArray);
-  },
-  buscarEquipo: function(key, myArray) {
-    for (var i=0; i < myArray.length; i++) {
-      if (myArray[i].id === key) {
-          return myArray[i].name;
-      }
-    }
+    if (x < 10) return buscarEquipo( doubleX, equiposArray); return buscarEquipo(x, equiposArray);
   },
   arrayLoader(array,items){
     array.push(items);
+  }
+}
+
+function buscarEquipo(key, myArray) {
+  for (var i=0; i < myArray.length; i++) {
+    if (myArray[i].id === key) {
+        return myArray[i].name;
+    }
   }
 }

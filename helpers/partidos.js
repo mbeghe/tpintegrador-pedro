@@ -2,7 +2,6 @@ var reporting = require('./reporting');
 const fs = require('fs');
 var commonFunctions = require('../shared/commonFunctions');
 var { insertMatch } = require('../repository/partidosRepository');
-var torneosRepository = require('../repository/torneosRepository');
 
 module.exports = {
     createReport: function(err, teamsArray, tournamentId, res) {
@@ -14,8 +13,7 @@ module.exports = {
       for(var i =0; i<n; i++)
       {
         var equipo = commonFunctions.formatear (teamsArray, i+1 );
-        equipoValues.push([{name: equipo, puntos: 0}]);
-        fs.appendFileSync(assetsPath, equipo + ': ' + 0 + '\r\n');
+        fs.appendFileSync(assetsPath, equipo.name + ': ' + equipo.puntos + '\r\n');
       }
   },
   processMatches: function(err, payload, callback, res) {
@@ -26,8 +24,6 @@ module.exports = {
     payload.matches.forEach(p => {
       
       callback(p, payload.tournamentId, insertMatch, res)
-      
-      
     });
 
     reporting.updateorCreateReport(payload.tournamentId);
