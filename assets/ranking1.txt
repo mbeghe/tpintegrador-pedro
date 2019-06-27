@@ -1,10 +1,2 @@
 Tabla de posiciones
 --------------------------
-River     : 6
-Racing    : 3
-Gimnasia  : 1
-Velez     : 1
-Union     : 1
-Boca      : 0
-Colon     : 0
-Casla     : 0

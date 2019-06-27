@@ -1,14 +1,15 @@
 const request = require('request-promise-native');
 
-async function createTeamTest(serverUrl) {
+async function createPlayerTest(serverUrl) {
 
-    const newEquipo = [{ id: 1,name: "Atlanta"}];
+    const newPlayer = { "id":1, "nombre":"Rodriguez", "equipo":1 }
+        
     let testResult = true;
 
     const options = {
         method: 'POST',
-        uri: `${serverUrl}/crear-equipo`,
-        body: newEquipo,
+        uri: `${serverUrl}/agregar-jugador`,
+        body: newPlayer,
         json: true
     }
 
@@ -23,8 +24,8 @@ async function createTeamTest(serverUrl) {
         testResult = false
     }
     if (testResult) {
-        console.log("crear equipo: ok")
+        console.log("crear jugador: ok")
     }
 }
 
-module.exports = createTeamTest
+module.exports = createPlayerTest

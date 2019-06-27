@@ -1,14 +1,11 @@
 const request = require('request-promise-native');
 
-async function createTeamTest(serverUrl) {
+async function generateFixture(serverUrl) {
 
-    const newEquipo = [{ id: 1,name: "Atlanta"}];
     let testResult = true;
 
     const options = {
-        method: 'POST',
-        uri: `${serverUrl}/crear-equipo`,
-        body: newEquipo,
+        uri: `${serverUrl}/generate-fixture?id=1`,
         json: true
     }
 
@@ -23,8 +20,8 @@ async function createTeamTest(serverUrl) {
         testResult = false
     }
     if (testResult) {
-        console.log("crear equipo: ok")
+        console.log("crear fixture: ok")
     }
 }
 
-module.exports = createTeamTest
+module.exports = generateFixture
