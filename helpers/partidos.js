@@ -12,7 +12,6 @@ module.exports = {
       for(var i =0; i<n; i++)
       {
         var equipo = commonFunctions.formatearTabla (equipoValues, i+1 );
-        console.log(equipo);
         fs.appendFileSync(assetsPath, equipo.name + ': ' + equipo.points + '\r\n');
       }
   },
