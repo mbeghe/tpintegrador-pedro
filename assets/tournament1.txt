@@ -4,35 +4,48 @@ FIXTURE
 Fecha 1
 --------------------------
 River      VS Boca      
-Racing     VS Newells   
-Olimpo     VS Temperley 
+Racing     VS Excursio  
+Velez      VS Arsenal   
+Casla      VS Lanus     
 --------------------------
 Fecha 2
 --------------------------
 River      VS Racing    
-Olimpo     VS Boca      
-Chacarita  VS Newells   
+Velez      VS Boca      
+Casla      VS Excursio  
+Lanus      VS Arsenal   
 --------------------------
 Fecha 3
 --------------------------
-River      VS Olimpo    
-Chacarita  VS Racing    
-Temperley  VS Boca      
+River      VS Velez     
+Casla      VS Racing    
+Lanus      VS Boca      
+Arsenal    VS Excursio  
 --------------------------
 Fecha 4
 --------------------------
-River      VS Chacarita 
-Temperley  VS Olimpo    
-Newells    VS Racing    
+River      VS Casla     
+Lanus      VS Velez     
+Arsenal    VS Racing    
+Excursio   VS Boca      
 --------------------------
 Fecha 5
 --------------------------
-River      VS Temperley 
-Newells    VS Chacarita 
-Boca       VS Olimpo    
+River      VS Lanus     
+Arsenal    VS Casla     
+Excursio   VS Velez     
+Boca       VS Racing    
 --------------------------
 Fecha 6
 --------------------------
-River      VS Newells   
-Boca       VS Temperley 
-Racing     VS Chacarita 
+River      VS Arsenal   
+Excursio   VS Lanus     
+Boca       VS Casla     
+Racing     VS Velez     
+--------------------------
+Fecha 7
+--------------------------
+River      VS Excursio  
+Boca       VS Arsenal   
+Racing     VS Lanus     
+Velez      VS Casla     

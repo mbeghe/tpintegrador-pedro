@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const app = express();
 var jugadoresRepository = require('../repository/jugadoresRepository');
 var equiposRepository = require('../repository/equiposRepository');
+var torneosRepository = require ('../repository/torneosRepository');
 var { getTeamByTournamentId } = require('../repository/torneosRepository');
 var { processMatches } = require('../helpers/partidos');
 var { generateFixture } = require('../helpers/fixtureManager');
@@ -85,7 +86,7 @@ app.delete('/eliminar-equipo', function(req, res) {
     }
 });
 
-app.post('crear-torneo', function(req, res) {
+app.post('/crear-torneo', function(req, res) {
     try {
         console.log("Creating tournament with id" + req.body.id);
         var result = torneosRepository.create(req.body.teams, req.body.id)
@@ -97,7 +98,7 @@ app.post('crear-torneo', function(req, res) {
     }
 });
 
-app.put('actualizar-torneo', function(req, res) {
+app.put('/actualizar-torneo', function(req, res) {
     try {
         console.log("Updating point values for tournament" + req.body.id);
         var result = torneosRepository.update(req.body.teams, req.body.id)
@@ -109,7 +110,7 @@ app.put('actualizar-torneo', function(req, res) {
     }
 });
 
-app.delete('eliminar-torneo', function(req, res) {
+app.delete('/eliminar-torneo', function(req, res) {
     try {
         console.log("Deleting team" + req.body.teamId + " from tournament" + req.body.id);
         var result = torneosRepository.delete(req.body.teamId, req.body.id)
@@ -124,6 +125,7 @@ app.delete('eliminar-torneo', function(req, res) {
 app.post('/cargar-partidos', function(req, res) {
     try {
         console.log("Loading matchs json");
+        console.log(req.body);
 
         processMatches(null, req.body, alreadyLoaded, res);
         res.send(result)

@@ -4,7 +4,7 @@ module.exports = {
     alreadyLoaded: async function (match, tournamentId, callback, res){
         const pool = await poolPromise;
         pool.request()
-            .input('idParameter', id)
+            .input('idParameter', match.id)
             .query('SELECT count(*) AS value FROM dbo.partidos WHERE id=@idParameter')
             .then(result => {
                 if(result.recordset[0].value > 0){
@@ -24,12 +24,12 @@ module.exports = {
             .then(result => {
                 if(match.result == -1)
                 {
-                    callback(match.team1, tournamentId, 1, getOrderedById, res);
-                    callback(match.team2, tournamentId, 1, getOrderedById, res);
+                    callback(match.team1, tournamentId, 1, getTeamByTournamentId, res);
+                    callback(match.team2, tournamentId, 1, getTeamByTournamentId, res);
                 }
                 else
                 {
-                    callback(match.result, tournamentId, 3, getOrderedById, res);
+                    callback(match.result, tournamentId, 3, getTeamByTournamentId, res);
                 }
             }).catch(function(err) {
                 console.log(err.message);

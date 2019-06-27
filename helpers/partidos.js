@@ -1,19 +1,21 @@
 var reporting = require('./reporting');
 const fs = require('fs');
 var commonFunctions = require('../shared/commonFunctions');
+var { updateorCreateReport} = require('../helpers/reporting');
 var { insertMatch } = require('../repository/partidosRepository');
 
 module.exports = {
     createReport: function(err, teamsArray, tournamentId, res) {
       var assetsPath = './assets/ranking' + tournamentId + '.txt';
       var n = teamsArray.length;
-      var equipoValues = [];
+      var equipoValues = commonFunctions.convertToObjArray(teamsArray);
       fs.writeFileSync(assetsPath, 'Tabla de posiciones' + '\r\n')
       fs.appendFileSync(assetsPath, '--------------------------' + '\r\n')
       for(var i =0; i<n; i++)
       {
-        var equipo = commonFunctions.formatear (teamsArray, i+1 );
-        fs.appendFileSync(assetsPath, equipo.name + ': ' + equipo.puntos + '\r\n');
+        var equipo = commonFunctions.formatearTabla (equipoValues, i+1 );
+        console.log(equipo);
+        fs.appendFileSync(assetsPath, equipo.name + ': ' + equipo.points + '\r\n');
       }
   },
   processMatches: function(err, payload, callback, res) {
@@ -26,7 +28,7 @@ module.exports = {
       callback(p, payload.tournamentId, insertMatch, res)
     });
 
-    reporting.updateorCreateReport(payload.tournamentId);
+    updateorCreateReport(payload.tournamentId);
   },
 }
 

@@ -7,7 +7,7 @@ module.exports = {
         teams.forEach(async function(team){ 
             await pool.request()
                 .input('nameParameter', team.name)
-                .input('pointsParameter', team.name)
+                .input('pointsParameter', team.points)
                 .input('tournamentParameter', tournamentId)
                 .query('INSERT INTO dbo.torneos (id, equipo, puntos) VALUES (@tournamentParameter, @nameParameter, @pointsParameter)')
                 .then(result => {
@@ -62,13 +62,12 @@ module.exports = {
         const pool = await poolPromise;
         pool.request()
                         .input('tournamentIdParameter', tournamentId)
-                        .query('SELECT nombre, puntos from dbo.equipos e INNER JOIN dbo.torneos t ON e.id=t.equipo WHERE t.Id=@tournamentIdParameter')
+                        .query('SELECT nombre, puntos from dbo.equipos e INNER JOIN dbo.torneos t ON e.id=t.equipo WHERE t.Id=@tournamentIdParameter ORDER BY puntos DESC')
                         .then(result => {
                             var toArray = [];
                             result.recordset.forEach(r => {
-                                toArray.push(r.nombre, r.puntos)
+                            toArray.push({  name:r.nombre, points: r.puntos });
                             })
-
                             callback(null, toArray, tournamentId, res)
                         }).catch(function(err) {
                             callback(err, null, null, res);

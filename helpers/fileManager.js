@@ -36,7 +36,7 @@ module.exports = {
       }
     }
 
-    createReport(null, teamsArray, tournamentId, res)
+    createReport(null, teams, tournamentId, res)
     res.status(200).send({message: "Fixture created on path: " + assetsPath});
   }
 }
