@@ -3,49 +3,49 @@ FIXTURE
 --------------------------
 Fecha 1
 --------------------------
-River      VS Boca      
-Racing     VS Excursio  
-Velez      VS Arsenal   
-Casla      VS Lanus     
+River      VS Racing    
+Casla      VS Gimnasia  
+Velez      VS Colon     
+Union      VS Boca      
 --------------------------
 Fecha 2
 --------------------------
-River      VS Racing    
-Velez      VS Boca      
-Casla      VS Excursio  
-Lanus      VS Arsenal   
+River      VS Casla     
+Velez      VS Racing    
+Union      VS Gimnasia  
+Boca       VS Colon     
 --------------------------
 Fecha 3
 --------------------------
 River      VS Velez     
-Casla      VS Racing    
-Lanus      VS Boca      
-Arsenal    VS Excursio  
+Union      VS Casla     
+Boca       VS Racing    
+Colon      VS Gimnasia  
 --------------------------
 Fecha 4
 --------------------------
-River      VS Casla     
-Lanus      VS Velez     
-Arsenal    VS Racing    
-Excursio   VS Boca      
+River      VS Union     
+Boca       VS Velez     
+Colon      VS Casla     
+Gimnasia   VS Racing    
 --------------------------
 Fecha 5
 --------------------------
-River      VS Lanus     
-Arsenal    VS Casla     
-Excursio   VS Velez     
-Boca       VS Racing    
+River      VS Boca      
+Colon      VS Union     
+Gimnasia   VS Velez     
+Racing     VS Casla     
 --------------------------
 Fecha 6
 --------------------------
-River      VS Arsenal   
-Excursio   VS Lanus     
-Boca       VS Casla     
-Racing     VS Velez     
+River      VS Colon     
+Gimnasia   VS Boca      
+Racing     VS Union     
+Casla      VS Velez     
 --------------------------
 Fecha 7
 --------------------------
-River      VS Excursio  
-Boca       VS Arsenal   
-Racing     VS Lanus     
-Velez      VS Casla     
+River      VS Gimnasia  
+Racing     VS Colon     
+Casla      VS Boca      
+Velez      VS Union     

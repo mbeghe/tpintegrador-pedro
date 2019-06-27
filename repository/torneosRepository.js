@@ -24,7 +24,7 @@ module.exports = {
             .input('teamIdParameter', teamId)
             .input('pointsParameter', points)
             .input('tournamentParameter', tournamentId)
-            .query('UPDATE dbo.torneos SET puntos=@pointsParameter WHERE id=@tournamentParameter AND equipo=@teamIdParameter')
+            .query('UPDATE dbo.torneos SET puntos= puntos + @pointsParameter WHERE id=@tournamentParameter AND equipo=@teamIdParameter')
             .then(result => {
                 callback(tournamentId, createReport, res)
             })
@@ -57,20 +57,5 @@ module.exports = {
                         }).catch(function(err) {
                             console.log(err.message);
                         });
-    },
-    getTeamByTournamentId: async function (tournamentId, callback, res){
-        const pool = await poolPromise;
-        pool.request()
-                        .input('tournamentIdParameter', tournamentId)
-                        .query('SELECT nombre, puntos from dbo.equipos e INNER JOIN dbo.torneos t ON e.id=t.equipo WHERE t.Id=@tournamentIdParameter ORDER BY puntos DESC')
-                        .then(result => {
-                            var toArray = [];
-                            result.recordset.forEach(r => {
-                            toArray.push({  name:r.nombre, points: r.puntos });
-                            })
-                            callback(null, toArray, tournamentId, res)
-                        }).catch(function(err) {
-                            callback(err, null, null, res);
-                        });
-      }
+    }
 }

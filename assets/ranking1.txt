@@ -1,10 +1,10 @@
 Tabla de posiciones
 --------------------------
-River     : 0
+River     : 6
+Racing    : 3
+Gimnasia  : 1
+Velez     : 1
+Union     : 1
 Boca      : 0
-Racing    : 0
-Velez     : 0
+Colon     : 0
 Casla     : 0
-Lanus     : 0
-Arsenal   : 0
-Excursio  : 0

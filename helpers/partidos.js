@@ -1,8 +1,6 @@
-var reporting = require('./reporting');
 const fs = require('fs');
 var commonFunctions = require('../shared/commonFunctions');
-var { updateorCreateReport} = require('../helpers/reporting');
-var { insertMatch } = require('../repository/partidosRepository');
+var { insertMatch } = require('../repository/partidosUpdateRepository');
 
 module.exports = {
     createReport: function(err, teamsArray, tournamentId, res) {
@@ -27,9 +25,7 @@ module.exports = {
       
       callback(p, payload.tournamentId, insertMatch, res)
     });
-
-    updateorCreateReport(payload.tournamentId);
-  },
+  }
 }
 
 
